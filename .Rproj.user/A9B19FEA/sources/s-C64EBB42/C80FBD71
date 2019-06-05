@@ -5,15 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "1700497866",
+    "hash" : "1568491290",
     "id" : "C80FBD71",
-    "lastKnownWriteTime" : 1559740344,
-    "last_content_update" : 1559740344721,
+    "lastKnownWriteTime" : 1559742042,
+    "last_content_update" : 1559742042419,
     "path" : "C:/Users/user/Desktop/R/homework4/homework4-410575010.Rmd",
     "project_path" : "homework4-410575010.Rmd",
     "properties" : {
-        "cursorPosition" : "143,18",
-        "scrollLine" : "131"
+        "cursorPosition" : "239,18",
+        "scrollLine" : "207"
     },
     "relative_order" : 1,
     "source_on_save" : false,

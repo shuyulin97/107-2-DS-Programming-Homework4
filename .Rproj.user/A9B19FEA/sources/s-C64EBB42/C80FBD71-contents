@@ -140,7 +140,8 @@ df_validCommits$commitDate
 請由`df_validCommits$commitDate`中取出台灣時區的小時數（0-23間）存在`df_validCommits$hh`中，其class為integer，最後一行請打df_validCommits$hh。
 ```{r ans108}
 # df_validCommits$hh
-df_validCommits$hh
+df_validCommits$hh <- as.integer(str_sub(df_validCommits$commitDate, 12,13))
+class(df_validCommits$hh)
 df_validCommits$hh
 ```
 
@@ -149,6 +150,9 @@ df_validCommits$hh
 
 ```{r ans109}
 # df_validCommits$date
+df_validCommits$date <- as.Date(df_validCommits$commitDate)
+class(df_validCommits$commitDate)
+df_validCommits$date
 ```
 
 ### 1.10 weekday變數
@@ -156,18 +160,28 @@ df_validCommits$hh
 
 ```{r ans110}
 # df_validCommits$weekday
+df_validCommits$weekday <- as.integer(lubridate::wday(df_validCommits$commitDate))
+class(df_validCommits$weekday)
+df_validCommits$weekday
 ```
 
 ### 1.11 星期一到三且12-23
 在df_validCommits裡創立一個新的validCommit欄位，class為logical，其值為TRUE若commitDate落在星期一到三，小時在12到23間（含起迄）；最後一行請打df_validCommits$validCommit。
 ```{r ans111}
 # df_validCommits$validCommit
+condition1 <- df_validCommits$weekday <= 3 & df_validCommits$weekday >= 1
+condition2 <- df_validCommits$hh <= 23 & df_validCommits$hh >= 12
+df_validCommits$validCommit <- condition1 & condition2
+df_validCommits$validCommit
 ```
 
 ### 1.12 取出合格條件子樣本
 取出df_validCommits中commitDate落在星期一到三，小時在12到23間（含起迄）的子樣本，存在data frame class的答案物件df_validCommitsSubsample中，最後一行打df_validCommitsSubsample。
 ```{r ans112}
 # df_validCommitsSubsample
+df_validCommitsSubsample <- df_validCommits[df_validCommits$validCommit == TRUE,]
+class(df_validCommitsSubsample)
+df_validCommitsSubsample
 ```
 
 
@@ -176,6 +190,8 @@ df_validCommits$hh
 
 ```{r ans113}
 # validCounts
+validCounts <- nrow(df_validCommitsSubsample[unique(df_validCommitsSubsample$date),])
+validCounts
 ```
 
 ### 1.14 不重覆有效commit次數查詢函數
@@ -220,6 +236,8 @@ valid_commit_count <- function(username,reponame,wday,startHour,endHour){
 最後一行請打valid_commit_count。
 ```{r ans114}
 # valid_commit_count
+valid_commit_count
+valid_commit_count
 ```
 
 
