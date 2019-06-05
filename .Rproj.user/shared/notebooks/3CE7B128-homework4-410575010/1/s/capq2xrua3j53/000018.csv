@@ -1,0 +1,62 @@
+"0","# valid_commit_count"
+"0","valid_commit_count <- function(username,reponame,wday,startHour,endHour){"
+"0","  commitHistory <- content(GET(str_c(""https://api.github.com/repos/"",username,""/"",reponame,""/commits"")))"
+"0","  df_allCommits <- map_dfr(commitHistory, commit_df_fun)"
+"0","  df_allCommits$samePerson <- df_allCommits$author == df_allCommits$commiter"
+"0","  df_validCommits <- df_allCommits[df_allCommits$samePerson == TRUE, ]"
+"0","  df_validCommits$commitDate <- ymd_hms(df_validCommits$commitDate, tz = ""Asia/Taipei"")"
+"0","  df_validCommits$hh <- as.integer(str_sub(df_validCommits$commitDate, 12,13))"
+"0","  df_validCommits$date <- as.Date(df_validCommits$commitDate)"
+"0","  df_validCommits$weekday <- as.integer(lubridate::wday(df_validCommits$commitDate))"
+"0","  condition1 <- df_validCommits$weekday == wday"
+"0","  condition2 <- df_validCommits$hh >= startHour & df_validCommits$hh <= endHour"
+"0","  df_validCommits$validCommit <- condition1 & condition2"
+"0","  df_validCommitsSubsample <- df_validCommits[df_validCommits$validCommit == TRUE,]"
+"0","  validCounts <- nrow(df_validCommitsSubsample[unique(df_validCommitsSubsample$date),])"
+"0","  "
+"0","  return(validCounts)"
+"0","}"
+"0","valid_commit_count(""shuyulin97"",""107-2-inclass-practice"",4,15,16)"
+"2","Date in ISO8601 format; converting timezone from UTC to ""Asia/Taipei"".
+"
+"1","[1]"
+"1"," 8"
+"1","
+"
+"0","valid_commit_count"
+"1","function(username,reponame,wday,startHour,endHour){
+"
+"1","  commitHistory <- content(GET(str_c(""https://api.github.com/repos/"",username,""/"",reponame,""/commits"")))
+"
+"1","  df_allCommits <- map_dfr(commitHistory, commit_df_fun)
+"
+"1","  df_allCommits$samePerson <- df_allCommits$author == df_allCommits$commiter
+"
+"1","  df_validCommits <- df_allCommits[df_allCommits$samePerson == TRUE, ]
+"
+"1","  df_validCommits$commitDate <- ymd_hms(df_validCommits$commitDate, tz = ""Asia/Taipei"")
+"
+"1","  df_validCommits$hh <- as.integer(str_sub(df_validCommits$commitDate, 12,13))
+"
+"1","  df_validCommits$date <- as.Date(df_validCommits$commitDate)
+"
+"1","  df_validCommits$weekday <- as.integer(lubridate::wday(df_validCommits$commitDate))
+"
+"1","  condition1 <- df_validCommits$weekday == wday
+"
+"1","  condition2 <- df_validCommits$hh >= startHour & df_validCommits$hh <= endHour
+"
+"1","  df_validCommits$validCommit <- condition1 & condition2
+"
+"1","  df_validCommitsSubsample <- df_validCommits[df_validCommits$validCommit == TRUE,]
+"
+"1","  validCounts <- nrow(df_validCommitsSubsample[unique(df_validCommitsSubsample$date),])
+"
+"1","  
+"
+"1","  return(validCounts)
+"
+"1","}
+"
+"1","<bytecode: 0x00000000190d5fc0>
+"

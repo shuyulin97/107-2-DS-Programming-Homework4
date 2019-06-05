@@ -1,8 +1,0 @@
-"0","# df_validCommitsSubsample"
-"0","df_validCommitsSubsample <- df_validCommits[df_validCommits$validCommit == TRUE,]"
-"0","class(df_validCommitsSubsample)"
-"1","[1]"
-"1"," ""data.frame"""
-"1","
-"
-"0","df_validCommitsSubsample"

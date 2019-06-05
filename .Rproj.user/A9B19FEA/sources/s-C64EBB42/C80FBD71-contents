@@ -236,7 +236,25 @@ valid_commit_count <- function(username,reponame,wday,startHour,endHour){
 最後一行請打valid_commit_count。
 ```{r ans114}
 # valid_commit_count
-valid_commit_count
+valid_commit_count <- function(username,reponame,wday,startHour,endHour){
+  commitHistory <- content(GET(str_c("https://api.github.com/repos/",username,"/",reponame,"/commits")))
+  df_allCommits <- map_dfr(commitHistory, commit_df_fun)
+  df_allCommits$samePerson <- df_allCommits$author == df_allCommits$commiter
+  df_validCommits <- df_allCommits[df_allCommits$samePerson == TRUE, ]
+  df_validCommits$commitDate <- ymd_hms(df_validCommits$commitDate, tz = "Asia/Taipei")
+  df_validCommits$hh <- as.integer(str_sub(df_validCommits$commitDate, 12,13))
+  df_validCommits$date <- as.Date(df_validCommits$commitDate)
+  df_validCommits$weekday <- as.integer(lubridate::wday(df_validCommits$commitDate))
+  condition1 <- df_validCommits$weekday == wday
+  condition2 <- df_validCommits$hh >= startHour & df_validCommits$hh <= endHour
+  df_validCommits$validCommit <- condition1 & condition2
+  df_validCommitsSubsample <- df_validCommits[df_validCommits$validCommit == TRUE,]
+  validCounts <- nrow(df_validCommitsSubsample[unique(df_validCommitsSubsample$date),])
+  
+  return(validCounts)
+}
+valid_commit_count("shuyulin97","107-2-inclass-practice",4,15,16)
+
 valid_commit_count
 ```
 
