@@ -1,0 +1,2 @@
+"0","library(httr)"
+"0","exhibitionList <- content(GET(""https://cloud.culture.tw/frontsite/trans/SearchShowAction.do?method=doFindTypeJ&category=6""))"

@@ -1,0 +1,4 @@
+"0","# df_allCommits"
+"0","library(purrr)"
+"0","df_allCommits <- map_dfr(commitHistory, commit_df_fun)"
+"0","df_allCommits"

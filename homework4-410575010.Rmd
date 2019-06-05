@@ -104,7 +104,8 @@ commit_df_fun
 使用作業3的2.4小題所提及的purrr套件之`map_dfr()`函數，將commitHistory的所有30筆資料轉成與1.2小題df_commit一樣欄位名稱但有30筆資料的data fram答案物件df_allCommits, 最後一行請寫df_allCommits
 ```{r ans104}
 # df_allCommits
-df_allCommits
+library(purrr)
+df_allCommits <- map_dfr(commitHistory, commit_df_fun)
 df_allCommits
 ```
 
@@ -113,6 +114,8 @@ df_allCommits
 
 ```{r ans105}
 # df_allCommits$samePerson
+df_allCommits$samePerson <- df_allCommits$author == df_allCommits$commiter
+df_allCommits$samePerson
 ```
 
 ### 1.6 子樣本
@@ -120,18 +123,25 @@ df_allCommits
 
 ```{r ans106}
 # df_validCommits
+df_validCommits <- df_allCommits[df_allCommits$samePerson == TRUE, ]
+df_validCommits
 ```
 
 ### 1.7 日期
 df_validCommits中的commitDate為UTC時區表示的時間"字串"，請將它轉成以"Asia/Taipei"時區顯示的POSIXct class資料，最後一行請打答案物件df_validCommits$commitDate。
 ```{r ans107}
 # df_validCommits$commitDate
+df_validCommits$commitDate <- ymd_hms(df_validCommits$commitDate, tz = "Asia/Taipei")
+class(df_validCommits$commitDate)
+df_validCommits$commitDate
 ```
 
 ### 1.8 hh變數
 請由`df_validCommits$commitDate`中取出台灣時區的小時數（0-23間）存在`df_validCommits$hh`中，其class為integer，最後一行請打df_validCommits$hh。
 ```{r ans108}
 # df_validCommits$hh
+df_validCommits$hh
+df_validCommits$hh
 ```
 
 ### 1.9 date變數

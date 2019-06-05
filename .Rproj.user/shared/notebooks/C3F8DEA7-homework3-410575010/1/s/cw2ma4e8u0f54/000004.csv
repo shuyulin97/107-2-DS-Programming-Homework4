@@ -1,0 +1,23 @@
+"0","dataframe_show_info"
+"1","function(exhibitionInput){
+"
+"1","  show_info <- data.frame(
+"
+"1","  title = exhibitionInput[[""title""]],
+"
+"1","  time = exhibitionInput[[""showInfo""]][[1]][[""time""]],
+"
+"1","  location = exhibitionInput[[""showInfo""]][[1]][[""location""]],
+"
+"1","  locationName = exhibitionInput[[""showInfo""]][[1]][[""locationName""]],
+"
+"1","  price = exhibitionInput[[""showInfo""]][[1]][[""endTime""]],
+"
+"1","  sourceWebName = exhibitionInput[[""sourceWebName""]],
+"
+"1","  stringsAsFactors=F)
+"
+"1","  return(show_info)
+"
+"1","}
+"

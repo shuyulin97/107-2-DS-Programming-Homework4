@@ -1,0 +1,2 @@
+"0","library(purrr)"
+"0","map_dfr(exhibitionList,dataframe_show_info) -> df_allShows"
